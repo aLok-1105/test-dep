@@ -7,6 +7,13 @@ const app = express();
 const cookieParser = require('cookie-parser');
 
 
+const cors = require('cors');
+// Allow all origins
+app.use(cors());
+// Allow specific origin(s)
+app.use(cors({
+  origin: 'https://test-depe-67iggnzgx-alok1105s-projects.vercel.app/'
+}));
 
 dotenv.config({ path: './config.env' });
 
