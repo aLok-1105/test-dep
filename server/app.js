@@ -12,7 +12,7 @@ const cors = require('cors');
 app.use(cors());
 // Allow specific origin(s)
 app.use(cors({
-  origin: 'https://test-depe-67iggnzgx-alok1105s-projects.vercel.app/'
+  origin: 'https://test-dep-frontend-6k9c5uegn-alok1105s-projects.vercel.app/'
 }));
 
 dotenv.config({ path: './config.env' });
