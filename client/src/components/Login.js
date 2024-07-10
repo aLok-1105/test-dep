@@ -13,30 +13,62 @@ export default function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const loginUser = async (event)=>{
+	const loginUser = async (event) => {
     event.preventDefault();
 
-    const res = await fetch('https://test-depe.vercel.app/login', {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({email, password})
-    })
-    
-    const data = await res.json();
-    // console.log(data);
-    // console.log(res);
+    try {
+      const res = await fetch('https://test-depe.vercel.app/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email, password }),
+      });
 
-    if(res.status === 400 || !data) {
-      window.alert("Invalid Credentials");
+      if (!res.ok) {
+        throw new Error(`HTTP error! status: ${res.status}`);
+      }
+
+      const data = await res.json();
+
+      if (res.status === 400 || !data) {
+        window.alert('Invalid Credentials');
+      } else {
+        dispatch({ type: 'USER', payload: true });
+        localStorage.setItem('token', data.token);
+        window.alert('Login Successful');
+        navigate('/');
+      }
+    } catch (error) {
+      console.error('Error:', error);
+      window.alert('Failed to fetch. Please check your network or server configuration.');
     }
-    else{
-      dispatch({type: "USER", payload:true});
-      window.alert("Login Successful");
-      history("/");
-    }
-  }
+  };
+	
+  // const loginUser = async (event)=>{
+  //   event.preventDefault();
+
+  //   const res = await fetch('https://test-depe.vercel.app/login', {
+  //     method: "POST",
+  //     headers: {
+  //       "Content-Type": "application/json"
+  //     },
+  //     body: JSON.stringify({email, password})
+  //   })
+    
+  //   const data = await res.json();
+  //   // console.log(data);
+  //   // console.log(res);
+
+  //   if(res.status === 400 || !data) {
+  //     window.alert("Invalid Credentials");
+  //   }
+  //   else{
+  //     dispatch({type: "USER", payload:true});
+  //     window.alert("Login Successful");
+  //     history("/");
+  //   }
+  // }
 
 
   return (
