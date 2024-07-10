@@ -9,12 +9,10 @@ const cookieParser = require('cookie-parser');
 
 const cors = require('cors');
 // Allow all origins
-app.use(cors());
-// Allow specific origin(s)
 app.use(cors({
-  origin: 'https://test-dep-frontend.vercel.app/'
+  origin: 'https://test-dep-frontend.vercel.app', // Your frontend URL
+  credentials: true, // Allow credentials (cookies, authorization headers)
 }));
-
 dotenv.config({ path: './config.env' });
 
 require('./db/conn');
@@ -45,15 +43,15 @@ app.get('/', (req, res) => {
 // 	res.send('Contact');
 // });
 
-const path = require('path')
-if(process.env.NODE_ENV=='production'){
+// const path = require('path')
+// if(process.env.NODE_ENV=='production'){
     
 
-    app.get('/',(req,res)=>{
-        app.use(express.static(path.resolve(__dirname, '..','client','build')));
-        res.sendFile(path.resolve(__dirname, '..','client','build','index.html'));
-    })
-}
+//     app.get('/',(req,res)=>{
+//         app.use(express.static(path.resolve(__dirname, '..','client','build')));
+//         res.sendFile(path.resolve(__dirname, '..','client','build','index.html'));
+//     })
+// }
 
 // console.log(path.resolve(__dirname, '..','client','build','index.html'));
 
