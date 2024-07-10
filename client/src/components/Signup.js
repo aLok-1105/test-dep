@@ -42,8 +42,8 @@ export default function Signup() {
 	const postData = async (event) => {
 		event.preventDefault();
 		const { name, email, phone, work, password, cpassword, profileImg } = user;
-
-		const res = await fetch('/register', {
+		
+		const res = await fetch('https://test-depe.vercel.app/register', {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json',
@@ -57,6 +57,7 @@ export default function Signup() {
 				cpassword,
         profileImg
 			}),
+			credentials: 'include',
 		});
 
 		const data = await res.json();
